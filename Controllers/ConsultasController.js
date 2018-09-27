@@ -31,16 +31,19 @@ router.route('/consultas').post(function (req, res) {
             generateConsulta(req.body.from, req.body.where, req.body.orderby, req.body.groupby);
         }
     }
-    res.json({ "Consulta": consultaResult, "ConsultaCampo": consultaCampoResult });
+    res.json({ "Delete": "DELETE FROM ConsultaCampo WHERE ConsultaId = " + consultaid + ";DELETE FROM Consulta WHERE ConsultaId = " + consultaid + ";", "Consulta": consultaResult, "ConsultaCampo": consultaCampoResult });
 });
 router.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now())
     next()
 })
+router.route('/consultas').get(function(req,res){
+    res.json({ "LOL": " te awitaste alv" });
+});
 
 function generaConsultaCampo(_select) {
     consultaCampoResult = [];
-    let select = _select.split("\n");
+    let select = _select.split(/\n|\r/gm);
     let prioridad = 0;
     select.forEach(element => {
         if (!element) {
@@ -59,10 +62,11 @@ function generaConsultaCampo(_select) {
 }
 
 function generateConsulta(_from, _where, _orderby, _groupby) {
-    let from = _from.replace('/(\r\n\t|\n|\r\t)/gm','');
-    let where = _where.replace('/(\r\n\t|\n|\r\t)/gm','');
-    let orderby = _orderby.replace('/(\r\n\t|\n|\r\t)/gm','');
-    let groupby = _groupby.replace('/(\r\n\t|\n|\r\t)/gm','');
+    let regex = /(\t|\n|\r)+|\ {2,}/gm;
+    let from = _from.replace(regex, "");
+    let where = _where.replace(regex, "");
+    let orderby = _orderby.replace(regex, "");
+    let groupby = _groupby.replace(regex, "");
     consultaResult =
         "INSERT INTO Ganadera.dbo.Consulta VALUES ('100', '" + nombreConsulta
         + "', '" + from.trim() + "', '" + where.trim() + "','" + orderby.trim() + "','" + groupby.trim() + "','','1','','','','',GETDATE(),GETDATE())";
