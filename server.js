@@ -1,19 +1,21 @@
-var express = require('express');
-var app = express();
-var port = process.env.port || 1337;
-var bodyParser = require('body-parser');
+'use strict';
+const express = require('express');
+const app = express();
+const port = process.env.port || 1337;
+const bodyParser = require('body-parser');
 
+//Controllers
+const consultasController = require('./Controllers/ConsultasController');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
-var consultasController = require('./Controllers/ConsultasController');
 app.use('/api',consultasController);
 
 
-app.listen(port,function(){
-    let datetime = new Date();
-    let message = "Server running on Port:- " + port + "\nStarted at:- " + datetime;
+app.listen(port, () => {
+    const datetime = new Date();
+    const message = `Server running on Port: ${port}\nStarted at: ${datetime}`;
     console.log(message);
 });
