@@ -6,7 +6,7 @@ const doubleQuote = `''`;
  * Realiza una copia superficial del cuerpo mientras convierte todas
  * las llaves de este a minusculas
  * @param {Object} body Cuerpo de la petición
- * @returns {Object} Objeto consus llaves en minusculas
+ * @returns {Object} Objeto con sus llaves en minusculas
  */
 function toLowerCaseKeys(body) {
     let lowBody = {};
@@ -35,9 +35,9 @@ function cleanBody(body) {
 }
 
 /**
- *Convierte toda comilla sensilla a comillas dobles
+ *Convierte toda comilla sencilla a comillas dobles
  * @param {Object} body Cuerpo de la petición
- * @returns Regresa el cuerpo y todas sus comillas sensillas convertidas a doble
+ * @returns Regresa el cuerpo y todas sus comillas sencillas convertidas a doble
  */
 function makeDoubleQuoted(body) {
     let doubleQuotedBody = {};

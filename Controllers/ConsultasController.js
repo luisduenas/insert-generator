@@ -1,8 +1,11 @@
 const express = require('express'),
     router = express.Router()
-    BodyParser = require('../Utils/BodyParser');
+BodyParser = require('../Utils/BodyParser');
 
-
+router.use(function timeLog(req, res, next) {
+    //console.log('Time: ', Date());
+    next();
+});
 router.route('/consultas').post((req, res) => {
     if (!req.body) {
         res.json({
@@ -35,7 +38,7 @@ router.route('/consultas').post((req, res) => {
 
     //Limpiamos y arreglamos el cuerpo de la petición
     body = BodyParser.makeDoubleQuoted(BodyParser.cleanBody(body));
-    
+
     const consultaid = body.consultaid;
     const nombreconsulta = body.nombreconsulta;
 
@@ -47,11 +50,6 @@ router.route('/consultas').post((req, res) => {
         "Consulta": consulta,
         "ConsultaCampo": consultaCampo
     });
-});
-
-router.use(function timeLog(req, res, next) {
-    console.log('Time: ', Date.now());
-    next();
 });
 
 router.route('/consultas').get((req, res) => {
