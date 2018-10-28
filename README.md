@@ -15,7 +15,7 @@ The request o be made is a `POST` who's data must contain this structure:
 - `from`: 
   Contains the *from* portion of the SQL script
 - `where`: 
-  Contains the *qhere* portion of the SQL script
+  Contains the *where* portion of the SQL script
 - `groupby`: 
   Contains the *group by* portion of the SQL script
 - `orderby`: 
